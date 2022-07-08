@@ -24,25 +24,33 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-
+// ---------------------------ROTAS SEM LOGIN---------------------
 Route.group(() => {
 
-  Route.post('/register', 'AuthController.register')
   Route.post('/login', 'AuthController.login')
+
 
   // ---------------------------ROTAS COM LOGIN------------------------
   Route.group(() => {
 
     Route.get('/category/list', 'CategoriesController.list')
+    Route.get('/lesson/list', 'LessonsController.list')
+  
+    Route.patch('/profile/update', 'UsersController.profileUpdate')
+    Route.patch('/password/update', 'UsersController.passwordUpdate')
     
+
     // -----------------------------ROTAS DE ADMIN--------------------------
     Route.group(() => {
 
+      Route.post('/register', 'AuthController.register')
       Route.post('/category/store', 'CategoriesController.store')
       Route.post('/lesson/store', 'LessonsController.store')
 
       Route.patch('/category/update/:id', 'CategoriesController.update')
       Route.patch('/lesson/update/:id', 'LessonsController.update')
+      Route.patch('/user/update/:id', 'UsersController.userUpdate')
+      Route.patch('/user/password/update/:id', 'UsersController.userPasswordUpdate')
 
       Route.delete('/category/delete/:id', 'CategoriesController.destroy')
       Route.delete('/lesson/delete/:id', 'LessonsController.destroy')

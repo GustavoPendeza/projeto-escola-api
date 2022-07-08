@@ -1,0 +1,24 @@
+import { schema, rules, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+
+export default class ProfileUpdateValidator {
+  constructor(protected ctx: HttpContextContract) {}
+
+  public refs = schema.refs({
+    tenantId: this.ctx.auth.user!.id
+  })
+
+  public schema = schema.create({
+    name: schema.string({ trim: true }, []),
+    email: schema.string({ trim: true }, [
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email', caseInsensitive: true, whereNot: { id: this.refs.tenantId } })
+    ])
+  })
+
+  public messages: CustomMessages = {
+    'name.required': 'O campo nome é obrigatório',
+    'email.required': 'O campo e-mail é obrigatório',
+    'email.unique': 'Esse e-mail já está sendo utilizado'
+  }
+}

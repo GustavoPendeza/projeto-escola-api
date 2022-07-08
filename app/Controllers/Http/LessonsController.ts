@@ -5,6 +5,10 @@ import LessonValidator from 'App/Validators/LessonValidator'
 
 export default class LessonsController {
 
+    public async list({}: HttpContextContract) {
+        return Lesson.all()
+    }
+
     /**
      * Cadastra uma nova matéria
      * 

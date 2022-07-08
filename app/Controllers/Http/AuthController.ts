@@ -5,7 +5,7 @@ import RegisterValidator from 'App/Validators/RegisterValidator'
 export default class AuthController {
 
     /**
-     * Cadastra um usuário como estudante
+     * Cadastra um usuário
      * 
      * @param request RequestContract
      * @param response ResponseContract
@@ -14,7 +14,10 @@ export default class AuthController {
     public async register({ request, response }: HttpContextContract) {
         const data = await request.validate(RegisterValidator)
 
-        data.access = 0        
+        // Caso não seja enviado o tipo de acesso, ele será considerado aluno
+        if (!data.access || data.access == null) {
+            data.access = 0
+        }      
 
         const user = await User.create(data)
 
