@@ -6,6 +6,10 @@ import UserUpdateValidator from 'App/Validators/UserUpdateValidator'
 
 export default class UsersController {
 
+    public async list() {
+        return User.all()
+    }
+
     /**
      * Altera o usuário autenticado
      * 
@@ -21,8 +25,7 @@ export default class UsersController {
 
         user.name = data.name
         user.email = data.email
-
-        user.save()
+        await user.save()
 
         return response.status(204)
     }
@@ -41,8 +44,7 @@ export default class UsersController {
         const data = await request.validate(PasswordUpdateValidator)
 
         user.password = data.password
-
-        user.save()
+        await user.save()
 
         return response.status(204)
     }
@@ -63,8 +65,7 @@ export default class UsersController {
         user.name = data.name
         user.email = data.email
         user.access = data.access
-
-        user.save()
+        await user.save()
 
         return response.status(204)
     }
@@ -83,8 +84,7 @@ export default class UsersController {
         const data = await request.validate(PasswordUpdateValidator)
 
         user.password = data.password
-
-        user.save()
+        await user.save()
 
         return response.status(204)
     }

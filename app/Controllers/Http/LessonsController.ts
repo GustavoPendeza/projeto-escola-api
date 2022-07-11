@@ -5,7 +5,12 @@ import LessonValidator from 'App/Validators/LessonValidator'
 
 export default class LessonsController {
 
-    public async list({}: HttpContextContract) {
+    /**
+     * Retorna todas as matérias cadastradas
+     * 
+     * @returns Lesson
+     */
+    public async list() {
         return Lesson.all()
     }
 
@@ -44,8 +49,7 @@ export default class LessonsController {
         lesson.name = data.name
         lesson.description = data.description
         lesson.categoryId = data.categoryId
-
-        lesson.save()
+        await lesson.save()
 
         return response.status(204)
     }
@@ -60,7 +64,7 @@ export default class LessonsController {
     public async destroy({ params, response }: HttpContextContract) {
         const lesson = await Lesson.findOrFail(params.id)
 
-        lesson.delete()
+        await lesson.delete()
 
         return response.status(204)
     }

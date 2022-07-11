@@ -9,7 +9,7 @@ export default class CategoriesController {
      * 
      * @returns Categories
      */
-    public async list({}: HttpContextContract) {
+    public async list() {
         return Category.all()
     }
 
@@ -42,8 +42,7 @@ export default class CategoriesController {
         const category = await Category.findOrFail(params.id)
 
         category.name = data.name
-
-        category.save()
+        await category.save()
 
         return response.status(204)
     }
@@ -58,7 +57,7 @@ export default class CategoriesController {
     public async destroy({ params, response }: HttpContextContract) {
         const category = await Category.findOrFail(params.id)
 
-        category.delete()
+        await category.delete()
 
         return response.status(204)
     }

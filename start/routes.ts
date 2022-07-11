@@ -43,19 +43,33 @@ Route.group(() => {
     // -----------------------------ROTAS DE ADMIN--------------------------
     Route.group(() => {
 
+      Route.get('/user/list', 'UsersController.list')
+      Route.get('/teacher/list', 'TeachersController.list')
+
       Route.post('/register', 'AuthController.register')
       Route.post('/category/store', 'CategoriesController.store')
       Route.post('/lesson/store', 'LessonsController.store')
+      Route.post('/teacher/store', 'TeachersController.store')
 
       Route.patch('/category/update/:id', 'CategoriesController.update')
       Route.patch('/lesson/update/:id', 'LessonsController.update')
       Route.patch('/user/update/:id', 'UsersController.userUpdate')
       Route.patch('/user/password/update/:id', 'UsersController.userPasswordUpdate')
+      Route.patch('/teacher/update/:id', 'TeachersController.update')
 
       Route.delete('/category/delete/:id', 'CategoriesController.destroy')
       Route.delete('/lesson/delete/:id', 'LessonsController.destroy')
+      Route.delete('/teacher/delete/:id', 'TeachersController.destroy')
 
     }).middleware('admin')
+
+    // ----------------------------ROTAS DE STUDENT---------------------------
+    Route.group(() => {
+      
+      Route.post('/enrollment/store', 'EnrollmentsController.store')
+      
+    }).middleware('student')
+
 
   }).middleware('auth')
 
