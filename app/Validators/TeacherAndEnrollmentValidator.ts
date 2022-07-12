@@ -1,10 +1,9 @@
 import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class TeacherValidator {
+export default class TeacherAndEnrollmentValidator {
   constructor(protected ctx: HttpContextContract) {}
 
-  
   public schema = schema.create({
     userId: schema.number([]),
     lessonId: schema.number([])

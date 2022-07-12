@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Lesson from 'App/Models/Lesson'
 import Teacher from 'App/Models/Teacher'
 import User from 'App/Models/User'
-import TeacherValidator from 'App/Validators/TeacherValidator'
+import TeacherAndEnrollmentValidator from 'App/Validators/TeacherAndEnrollmentValidator';
 
 export default class TeachersController {
 
@@ -23,7 +23,7 @@ export default class TeachersController {
      * @returns Response
      */
     public async store({ request, response }: HttpContextContract) {
-        const data = await request.validate(TeacherValidator)
+        const data = await request.validate(TeacherAndEnrollmentValidator)
 
         const user = await User.findOrFail(data.userId)
         const lesson = await Lesson.findOrFail(data.lessonId)
@@ -58,7 +58,7 @@ export default class TeachersController {
     public async update({ params, request, response }: HttpContextContract) {
         const teacher = await Teacher.findOrFail(params.id)
 
-        const data = await request.validate(TeacherValidator)
+        const data = await request.validate(TeacherAndEnrollmentValidator)
         
         const user = await User.findOrFail(data.userId)
         const lesson = await Lesson.findOrFail(data.lessonId)
