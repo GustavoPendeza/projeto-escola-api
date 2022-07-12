@@ -8,7 +8,7 @@ export default class LessonsController {
     /**
      * Retorna todas as matérias cadastradas
      * 
-     * @returns Lesson
+     * @returns Array<Lesson>
      */
     public async list() {
         return Lesson.all()

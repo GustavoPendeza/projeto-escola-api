@@ -6,6 +6,11 @@ import UserUpdateValidator from 'App/Validators/UserUpdateValidator'
 
 export default class UsersController {
 
+    /**
+     * Retorna todos os usuários cadastrados
+     * 
+     * @returns Array<User>
+     */
     public async list() {
         return User.all()
     }

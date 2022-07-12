@@ -7,7 +7,7 @@ export default class CategoriesController {
     /**
      * Retorna uma lista com todas as categorias cadastradas
      * 
-     * @returns Categories
+     * @returns Array<Categories>
      */
     public async list() {
         return Category.all()

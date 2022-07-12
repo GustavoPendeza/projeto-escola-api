@@ -9,7 +9,7 @@ export default class TeachersController {
     /**
      * Retorna todos os professores cadastrados em matérias
      * 
-     * @returns Teacher
+     * @returns Array<Teacher>
      */
     public async list() {
         return Teacher.all()
