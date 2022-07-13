@@ -46,6 +46,7 @@ Route.group(() => {
       Route.get('/user/list', 'UsersController.list')
       Route.get('/teacher/list', 'TeachersController.list')
       Route.get('/enrollment/list', 'EnrollmentsController.list')
+      Route.get('/students/list', 'StudentsController.list')
 
       Route.post('/register', 'AuthController.register')
       Route.post('/category/store', 'CategoriesController.store')
@@ -66,10 +67,18 @@ Route.group(() => {
 
     }).middleware('admin')
 
+    // ---------------------------ROTAS DE TEACHER----------------------------
+    Route.group(() => {
+
+      Route.get('/teacher/my-lessons', 'TeachersController.myLessons')
+      Route.get('/teacher/my-students', 'TeachersController.myStudents')
+
+    }).middleware('teacher')
+
     // ----------------------------ROTAS DE STUDENT---------------------------
     Route.group(() => {
 
-      Route.get('/enrollment/my-enrollments', 'EnrollmentsController.myEnrollments')
+      Route.get('/enrollment/my-enrollments', 'StudentsController.myEnrollments')
       
       Route.post('/enrollment/store', 'EnrollmentsController.store')
       
