@@ -11,7 +11,7 @@ export default class LessonsController {
      * @returns Array<Lesson>
      */
     public async list() {
-        return Lesson.all()
+        return Lesson.query().preload('category')
     }
 
     /**

@@ -14,19 +14,7 @@ export default class EnrollmentsController {
      * @returns Array<Enrollment>
      */
     public async list() {
-        return Enrollment.all()
-    }
-
-    /**
-     * Retorna todos as matérias em que o usuário autenticado está matriculado
-     * 
-     * @param auth AuthContract
-     * @returns Array<Enrollment>
-     */
-    public async myEnrollments({ auth }: HttpContextContract) {
-        const enrollments = await Enrollment.query().where('userId', auth.user!.id)
-
-        return enrollments
+        return Enrollment.query().preload('user').preload('lesson')
     }
 
     /**
@@ -53,7 +41,7 @@ export default class EnrollmentsController {
         for (let i = 0; i < matriculado.length; i++) {
             if (user.id === matriculado[i].userId && lesson.id === matriculado[i].lessonId) {
                 return response.status(406).json({
-                    message: 'Você já está matriculado(a) nessa matéria'
+                    message: 'Você já se matriculou nessa matéria'
                 })
             }
 
@@ -112,7 +100,7 @@ export default class EnrollmentsController {
         for (let i = 0; i < matriculado.length; i++) {
             if (user.id === matriculado[i].userId && lesson.id === matriculado[i].lessonId) {
                 return response.status(406).json({
-                    message: 'O(A) aluno(a) já está matriculado(a) nessa matéria'
+                    message: 'O(A) aluno(a) já se matriculou nessa matéria'
                 })
             }
 
