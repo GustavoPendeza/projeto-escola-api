@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Enrollment from 'App/Models/Enrollment';
 import Lesson from 'App/Models/Lesson'
 import Teacher from 'App/Models/Teacher'
 import User from 'App/Models/User'
@@ -12,7 +13,35 @@ export default class TeachersController {
      * @returns Array<Teacher>
      */
     public async list() {
-        return Teacher.all()
+        return Teacher.query().preload('user').preload('lesson')
+    }
+
+    /**
+     * Retorna todas as matérias em que o professor autenticado está cadastrado
+     * 
+     * @param auth AuthContract
+     * @returns Array<Teacher>
+     */
+    public async myLessons({ auth }: HttpContextContract) {
+        const lessons = await Teacher.query().where('userId', auth.user!.id).preload('lesson')
+
+        return lessons
+    }
+    
+    /**
+     * Retorna todos os alunos que estão cadastrados nas matérias do professor autenticado
+     * 
+     * @param auth AuthContract
+     * @returns Array<Enrollment>
+     */
+    public async myStudents({ auth }: HttpContextContract) {
+        await auth.user!.load('teacher')
+        const lessons = auth.user!.teacher.map(t => t.lessonId)
+        const lessonsId = [... lessons ?? []]
+
+        const students = await Enrollment.query().whereIn('lessonId', lessonsId).preload('user').preload('lesson')
+
+        return students
     }
 
     /**
