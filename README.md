@@ -8,6 +8,33 @@ Fiz esse projeto para estudar sobre API em AdonisJS.
 
 Tenha em mente que o "Admin" seria a coordenação da escola, que tem acesso à maioria das coisas e que controla basicamente tudo.
 
+## Preparação de ambiente
+
+Instale as dependências utilizando o comando:
+
+```bash
+npm install
+```
+
+Crie um banco de dados e em seguida rode as migrations com o comando: 
+
+```bash
+node ace migration:run
+```
+
+Para utilizar um servidor de teste do projeto é só usar o comando: 
+
+```bash
+node ace serve --watch
+```
+
+Se quiser já ter dados em seu banco de dados, pode utilizar o comando: 
+
+```bash
+# Para saber o que será cadastrado é só ir em 'database/seeders/'
+node ace db:seed
+```
+
 ## Classes
 
 - User (Defini o nível de acesso nele mesmo(access), sendo eles 0 aluno, 1 professor e 2 admin)
