@@ -31,6 +31,8 @@ Route.group(() => {
 
     Route.get('/category/list', 'CategoriesController.list')
     Route.get('/lesson/list', 'LessonsController.list')
+
+    Route.post('/logout', 'AuthController.logout')
   
     Route.patch('/profile/update', 'UsersController.profileUpdate')
     Route.patch('/password/update', 'UsersController.passwordUpdate')
